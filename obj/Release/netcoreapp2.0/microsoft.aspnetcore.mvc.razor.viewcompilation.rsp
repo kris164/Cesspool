@@ -1,0 +1,5 @@
+/var/Cesspool
+--output-path=obj/Release/netcoreapp2.0/
+--application-name=Cesspool
+--content-root=/var/Cesspool
+--file=/var/Cesspool/Views/Pesso/GetPesso.cshtml

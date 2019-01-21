@@ -1,0 +1,10 @@
+/var/Cesspool/bin/Release/netcoreapp2.0/Cesspool.deps.json
+/var/Cesspool/bin/Release/netcoreapp2.0/Cesspool.runtimeconfig.json
+/var/Cesspool/bin/Release/netcoreapp2.0/Cesspool.runtimeconfig.dev.json
+/var/Cesspool/bin/Release/netcoreapp2.0/Cesspool.dll
+/var/Cesspool/bin/Release/netcoreapp2.0/Cesspool.pdb
+/var/Cesspool/obj/Release/netcoreapp2.0/Cesspool.csproj.CoreCompileInputs.cache
+/var/Cesspool/obj/Release/netcoreapp2.0/Cesspool.AssemblyInfoInputs.cache
+/var/Cesspool/obj/Release/netcoreapp2.0/Cesspool.AssemblyInfo.cs
+/var/Cesspool/obj/Release/netcoreapp2.0/Cesspool.dll
+/var/Cesspool/obj/Release/netcoreapp2.0/Cesspool.pdb
