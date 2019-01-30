@@ -3,9 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using dotnettest.Models;
+using Cesspool.Models;
 
-namespace dotnettest.Controler
+namespace Cesspool.Controler
 {
     [Route("api/[controller]")]
     public class insertController : Controller

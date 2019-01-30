@@ -12872,11 +12872,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "c:\\Users\\krzysztof.andrejew\\Documents\\Cesspool\\Cesspool.csproj",
-      "projectName": "Cesspool",
-      "projectPath": "c:\\Users\\krzysztof.andrejew\\Documents\\Cesspool\\Cesspool.csproj",
+      "projectUniqueName": "C:\\Users\\krzysztof.andrejew\\Desktop\\NAUKA\\TESTGITA\\Cesspool\\dotnettest.csproj",
+      "projectName": "dotnettest",
+      "projectPath": "C:\\Users\\krzysztof.andrejew\\Desktop\\NAUKA\\TESTGITA\\Cesspool\\dotnettest.csproj",
       "packagesPath": "C:\\Users\\krzysztof.andrejew\\.nuget\\packages\\",
-      "outputPath": "c:\\Users\\krzysztof.andrejew\\Documents\\Cesspool\\obj\\",
+      "outputPath": "C:\\Users\\krzysztof.andrejew\\Desktop\\NAUKA\\TESTGITA\\Cesspool\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
