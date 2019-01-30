@@ -23,6 +23,7 @@ namespace Cesspool.Controler
         {
           //  IQueryable<pesso> query = db.pesso.Take(1);
 
+        //git clone https://github.com/kris164/Cesspool.git
 
         // List<pesso> dataList =  db.pesso.OrderByDescending(z=>z.Id).ToList();
         //DateTime ds = new DateTime("2018-09-25 22:06:33")
