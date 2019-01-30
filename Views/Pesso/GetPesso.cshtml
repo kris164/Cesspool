@@ -7,40 +7,34 @@
 <!DOCTYPE html>
  
 <html>
-<head>
-<meta name="viewport" content="width=device-width" />
-<script src="https://www.amcharts.com/lib/3/amcharts.js"></script>
-<script src="https://www.amcharts.com/lib/3/serial.js"></script>
-<script src="https://www.amcharts.com/lib/3/themes/light.js"></script> 
-<title>Index</title>
-</head>
+    <head>
+        <meta name="viewport" content="width=device-width" />
+            <script src="https://www.amcharts.com/lib/3/amcharts.js"></script>
+            <script src="https://www.amcharts.com/lib/3/serial.js"></script>
+            <script src="https://www.amcharts.com/lib/3/themes/light.js"></script>  
+        <title>Index</title>
+    </head>
+
 <body>
 
-	<h1 style="magin-left:50px;"> Level of filling the Cesspool </h1> 
-    <div id="chartdiv" style="width:60%; height: 600px;font-size: 11px;"></div> 
+	    <h1 style="magin-left:50px;"> Level of filling the Cesspool </h1> 
+        <div id="chartdiv" style="width:60%; height: 600px;font-size: 11px;"></div> 
     
-    <table style="border-style: dashed; margin-top:250px; magin-left:50px;">
-
+        <table style="border-style: dashed; margin-top:250px; magin-left:50px;"> 
             <tr><th>Distance</th><th>Voltage</th><th>Temp</th><th>Time</th></tr>
 
             @foreach (var item in Model.Lista)
-            {
-                      
+            {    
                 <tr  >
                 <td style="border-right-style: dashed;   text-align:center;"><p style="font-size:16px; width:100px;" class="panel-title"> @item.Name </p></td>
                 <td style="border-right-style: dashed;   text-align:center;"><p style="font-size:16px; width:100px;" class="panel-title"> @item.voltage </p></td>
 				<td style="border-right-style: dashed;   text-align:center;"><p style="font-size:16px; width:100px;" class="panel-title"> @item.temperature </p></td>
                 <td><p style="font-size:16px;" class="panel-title"> @item.lastUpdated </p></td>
-                </tr>
-          
+                </tr> 
             }
 
-    </table>
-
-
-
-
-
+        </table>
+ 
 
 @section scripts{
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>

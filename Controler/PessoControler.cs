@@ -21,24 +21,20 @@ namespace Cesspool.Controler
         [HttpGet("GetPesso")]
         public IActionResult GetPesso()
         {
-          //  IQueryable<pesso> query = db.pesso.Take(1);
-
-
-        // List<pesso> dataList =  db.pesso.OrderByDescending(z=>z.Id).ToList();
-        //DateTime ds = new DateTime("2018-09-25 22:06:33")
+            //  IQueryable<pesso> query = db.pesso.Take(1); 
+            // List<pesso> dataList =  db.pesso.OrderByDescending(z=>z.Id).ToList();
+            //DateTime ds = new DateTime("2018-09-25 22:06:33")
         
              DateTime value = new DateTime(2018, 9, 25,22,6,33);
-
-
+ 
             List<pesso> dataList = db.pesso.Where(z=>z.lastUpdated >= value).ToList();
+ 
+            var barrel =  db.pesso.OrderByDescending(p => p.lastUpdated)
+                            .Select(c=>c.Name)
+                            .FirstOrDefault();
 
 
-        var barrel =  db.pesso.OrderByDescending(p => p.lastUpdated)
-                        .Select(c=>c.Name)
-                       .FirstOrDefault();
-
-
-          //  string barrel = db.pesso.Take(1).OrderByDescending(z=>z.Id).Select(c=>c.Name).SingleOrDefault();
+            //  string barrel = db.pesso.Take(1).OrderByDescending(z=>z.Id).Select(c=>c.Name).SingleOrDefault();
 
             int barrel_int = Convert.ToInt32(barrel);
 
@@ -48,56 +44,49 @@ namespace Cesspool.Controler
             ViewBag.calculate = barrel_int.ToString();
             ViewBag.bareel_max = brest;
             ViewBag.bareel_min = bm;
-           
-		 
-         
+            
 
-       // dataList.GroupBy(i => i.lastUpdated.ToString("yyyyMMdd"))
-       //      .Select(i => new
-       //      {
-       //          Date = DateTime.ParseExact(i.Key, "yyyyMMdd", CultureInfo.InvariantCulture, DateTimeStyles.None),
-       //          Count = i.Count()
-       //      });
+                // dataList.GroupBy(i => i.lastUpdated.ToString("yyyyMMdd"))
+                //      .Select(i => new
+                //      {
+                //          Date = DateTime.ParseExact(i.Key, "yyyyMMdd", CultureInfo.InvariantCulture, DateTimeStyles.None),
+                //          Count = i.Count()
+                //      });
 
-        var q= from i in dataList
-        group i by i.lastUpdated.Date into g
-         select new {
+                 var q= from i in dataList
+                 group i by i.lastUpdated.Date into g
+                  select new {
+                  
+                     lastUpdated = g.Key,
+                     Name = g.FirstOrDefault()  
+                 };
+ 
 
-            lastUpdated = g.Key,
-            Name = g.FirstOrDefault()  
-        };
+                    ViewModel model = new ViewModel();
+                    model.Lista =  dataList;
 
-
-
-
-
-          ViewModel model = new ViewModel();
-           model.Lista =  dataList;
-
-
-           List<DataPoint> dataPoints = new List<DataPoint>();//{
+ 
+                    List<DataPoint> dataPoints = new List<DataPoint>();//{
 
     
                 int a = 1;
                 foreach (var item in q)
-              {
-                  double results;
-                  var hel = 185 - Convert.ToInt32(item.Name.Name) + 30;
-                  double.TryParse(hel.ToString(), out results);
+                    {
+                    double results;
+                    var hel = 185 - Convert.ToInt32(item.Name.Name) + 30;
+                    double.TryParse(hel.ToString(), out results);
+ 
+                    a++;
 
-                //var d = item.lastUpdated.AddDays(a).ToShortDateString();
+                    dataPoints.Add(new DataPoint(y:results,label:item.lastUpdated.ToShortDateString()));
 
-                a++;
-
-                        dataPoints.Add(new DataPoint(y:results,label:item.lastUpdated.ToShortDateString()));
-
-                 // new DataPoint(item.lastUpdated, results),
-              }
+                        // new DataPoint(item.lastUpdated, results),
+                    }
 
 
-      //      dataPoints.Add(new DataPoint(y:1,x:1));
-       //     dataPoints.Add(new DataPoint(y:2,x:4));
-       //     dataPoints.Add(new DataPoint(y:3,x:2));
+                    //     dataPoints.Add(new DataPoint(y:1,x:1));
+                    //     dataPoints.Add(new DataPoint(y:2,x:4));
+                    //     dataPoints.Add(new DataPoint(y:3,x:2));
 
 
             model.dataPoints = dataPoints;
