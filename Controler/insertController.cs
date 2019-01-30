@@ -3,9 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Cesspool.Models;
+using dotnettest.Models;
 
-namespace Cesspool.Controler
+namespace dotnettest.Controler
 {
     [Route("api/[controller]")]
     public class insertController : Controller
@@ -16,18 +16,17 @@ namespace Cesspool.Controler
             db = _db;
         }
 
-        [HttpGet("{id}/{voltage}")]
-        public List<pesso> insert(string id, string voltage)
+        [HttpGet("{id}/{voltage}/{temperature}")]
+        public List<pesso> insert(string id, string voltage, string temperature)
         {
             IQueryable<pesso> query = db.pesso.Take(1);
 
             if (db.pesso.Any())
             {
 
+                DateTime date1 = DateTime.Now;
 
-DateTime date1 = DateTime.Now;
-
-                db.pesso.Add(new pesso { Id = 0, Name = id, voltage = voltage, lastUpdated = date1  });
+                db.pesso.Add(new pesso { Id = 0, Name = id, voltage = voltage, lastUpdated = date1, temperature = temperature });
 
                 db.SaveChanges();
             }

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Web;
 
-namespace Cesspool.Models
+namespace dotnettest.Models
 {
 [DataContract]
 	public class DataPoint

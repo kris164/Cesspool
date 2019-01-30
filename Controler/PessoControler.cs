@@ -3,11 +3,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Cesspool.Models;
+using dotnettest.Models;
 using Newtonsoft.Json;
 using System.Globalization;
 
-namespace Cesspool.Controler
+namespace dotnettest.Controler
 {
     [Route("api/[controller]")]
     public class pessoController : Controller
@@ -23,7 +23,6 @@ namespace Cesspool.Controler
         {
           //  IQueryable<pesso> query = db.pesso.Take(1);
 
-        //git clone https://github.com/kris164/Cesspool.git
 
         // List<pesso> dataList =  db.pesso.OrderByDescending(z=>z.Id).ToList();
         //DateTime ds = new DateTime("2018-09-25 22:06:33")
@@ -31,8 +30,27 @@ namespace Cesspool.Controler
              DateTime value = new DateTime(2018, 9, 25,22,6,33);
 
 
-       List<pesso> dataList = db.pesso.Where(z=>z.lastUpdated >= value).ToList();
+            List<pesso> dataList = db.pesso.Where(z=>z.lastUpdated >= value).ToList();
 
+
+        var barrel =  db.pesso.OrderByDescending(p => p.lastUpdated)
+                        .Select(c=>c.Name)
+                       .FirstOrDefault();
+
+
+          //  string barrel = db.pesso.Take(1).OrderByDescending(z=>z.Id).Select(c=>c.Name).SingleOrDefault();
+
+            int barrel_int = Convert.ToInt32(barrel);
+
+            Decimal calculate = barrel_int / 180;
+            int bm = Convert.ToInt32(calculate) * 100;
+            int brest = 100 - bm;
+            ViewBag.calculate = barrel_int.ToString();
+            ViewBag.bareel_max = brest;
+            ViewBag.bareel_min = bm;
+           
+		 
+         
 
        // dataList.GroupBy(i => i.lastUpdated.ToString("yyyyMMdd"))
        //      .Select(i => new
@@ -90,16 +108,12 @@ namespace Cesspool.Controler
           return View(model);
 
         }
-
-
-        
-
-
-    }
+   }
 
       public class ViewModel
     {
         public IEnumerable<pesso> Lista { get; set; }
         public  IEnumerable<DataPoint> dataPoints { get; set; }
     }
+ 
 }

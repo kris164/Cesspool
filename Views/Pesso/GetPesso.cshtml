@@ -1,8 +1,5 @@
-@model Cesspool.Controler.ViewModel
-
-  
-<br><br>
-
+@model dotnettest.Controler.ViewModel
+ <br><br> 
 @{
 	Layout = null;
 }
@@ -11,76 +8,198 @@
  
 <html>
 <head>
-	<meta name="viewport" content="width=device-width" />
-	<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
-	<title>Index</title>
+<meta name="viewport" content="width=device-width" />
+<script src="https://www.amcharts.com/lib/3/amcharts.js"></script>
+<script src="https://www.amcharts.com/lib/3/serial.js"></script>
+<script src="https://www.amcharts.com/lib/3/themes/light.js"></script> 
+<title>Index</title>
 </head>
-
 <body>
-	<div id="chartContainer"></div>
- 
-    <table style="border-style: dashed; margin-top:450px;">
 
-     <tr>
-    <th>Distance</th>
-    <th>Voltage</th>
-    <th>Time</th>
-    </tr>
+	<h1 style="magin-left:50px;"> Level of filling the Cesspool </h1> 
+    <div id="chartdiv" style="width:60%; height: 600px;font-size: 11px;"></div> 
+    
+    <table style="border-style: dashed; margin-top:250px; magin-left:50px;">
 
-                        @foreach (var item in Model.Lista)
-                        {
-                                  
-                            <tr  >
-                            <td style="border-right-style: dashed;   text-align:center;"><p style="font-size:16px; width:100px;" class="panel-title"> @item.Name </p></td>
-                            <td style="border-right-style: dashed;   text-align:center;"><p style="font-size:16px; width:100px;" class="panel-title"> @item.voltage </p></td>
-                            <td><p style="font-size:16px;" class="panel-title"> @item.lastUpdated </p></td>
-                            </tr>
+            <tr><th>Distance</th><th>Voltage</th><th>Temp</th><th>Time</th></tr>
+
+            @foreach (var item in Model.Lista)
+            {
                       
-                        }
+                <tr  >
+                <td style="border-right-style: dashed;   text-align:center;"><p style="font-size:16px; width:100px;" class="panel-title"> @item.Name </p></td>
+                <td style="border-right-style: dashed;   text-align:center;"><p style="font-size:16px; width:100px;" class="panel-title"> @item.voltage </p></td>
+				<td style="border-right-style: dashed;   text-align:center;"><p style="font-size:16px; width:100px;" class="panel-title"> @item.temperature </p></td>
+                <td><p style="font-size:16px;" class="panel-title"> @item.lastUpdated </p></td>
+                </tr>
+          
+            }
 
     </table>
+
+
+
+
+
+
+@section scripts{
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script>
+        google.charts.load('current', { 'packages': ['corechart'] });
+        google.charts.setOnLoadCallback(drawChart);
+
+        function drawChart() {
+            var data = new google.visualization.DataTable();
+            data.addColumn('string', 'Tax Type');
+            data.addColumn('number', 'Tax Percentage');
+            data.addRows([
+                ['Soc. Sec. Tax', { v: 30, f: '30%' }],
+                ['Income Tax', { v: 35, f: '35%' }],
+                ['Borrowing', { v: 15, f: '15%' }],
+                ['Corp. Tax', { v: 12, f: '12%' }],
+                ['Misc', { v: 8, f: '8%' }]
+            ]);
+
+            // Simple Pie Chart:
+            var option = {
+                title: 'Tax Structure in US',
+                width: 500,
+                height: 400
+            };
+
+            var chart = new google.visualization.PieChart(document.getElementById('chart1'));
+            chart.draw(data, option);
+
+            //3D Pie Chart:
+            option.is3D = true;
+            chart = new google.visualization.PieChart(document.getElementById('chart2'));
+            chart.draw(data, option);
+
+            // Exploded Pie Chart:
+            option.is3D = false;
+            option.slices = {
+                1: { offset: 0.3 },
+                3: { offset: 0.5 }
+            };
+            chart = new google.visualization.PieChart(document.getElementById('chart3'));
+            chart.draw(data, option);
+
+            // Exploded 3D Pie Chart:
+            option.is3D = true;
+            chart = new google.visualization.PieChart(document.getElementById('chart4'));
+            chart.draw(data, option);
+        }
+    </script>
+}
+
+
+ 	<script type="text/javascript">
+
+
+	
  
+ 		window.onload = function () {
 
-	<script type="text/javascript">
- 
-		window.onload = function () {
 
-    var result = @Html.Raw(ViewBag.DataPoints);
-    
-	var dataPoints =[];
-	for(var i = 0; i < result.length; i++){
-		dataPoints.push({label:result[i].label, y:result[i].y});
-	}
+var minInt = parseInt('@ViewBag.calculate');
+var maxInt = parseInt('@ViewBag.bareel_min');
 
-			var chart = new CanvasJS.Chart("chartContainer", {
-				theme: "theme2",
-				animationEnabled: true,
-				zoomEnabled: true,
-				title: {
-					text: "Filling degree of the cesspool in [%]"
+ var calc  = 	1 - (minInt/180);
+ calc = calc * 100;		 
+var calc_rest = 100- calc;
+
+var chartData = [ {
+  "category": "Space left in the cesspool",
+  "value1": calc,
+  "value2": calc_rest
+} ];
+
+
+var chart = AmCharts.makeChart( "chartdiv", {
+  "theme": "light",
+  "type": "serial",
+  "depth3D": 100,
+  "angle": 30,
+  "autoMargins": false,
+  "marginBottom": 100,
+  "marginLeft": 350,
+  "marginRight": 300,
+  "dataProvider": chartData,
+  "valueAxes": [ {
+    "stackType": "100%",
+    "gridAlpha": 0
+  } ],
+  "graphs": [ {
+    "type": "column",
+    "topRadius": 1,
+    "columnWidth": 1,
+    "showOnAxis": true,
+    "lineThickness": 2,
+    "lineAlpha": 0.5,
+    "lineColor": "#FFFFFF",
+    "fillColors": "#8d003b",
+    "fillAlphas": 0.8,
+    "valueField": "value1"
+  }, {
+    "type": "column",
+    "topRadius": 1,
+    "columnWidth": 1,
+    "showOnAxis": true,
+    "lineThickness": 2,
+    "lineAlpha": 0.5,
+    "lineColor": "#cdcdcd",
+    "fillColors": "#cdcdcd",
+    "fillAlphas": 0.5,
+    "valueField": "value2"
+  } ],
+
+  "categoryField": "category",
+  "categoryAxis": {
+    "axisAlpha": 0,
+    "labelOffset": 40,
+    "gridAlpha": 0
+  },
+  "export": {
+    "enabled": true
+  }
+} );
+
+
+   var result = @Html.Raw(ViewBag.DataPoints);
+   
+var dataPoints =[];
+for(var i = 0; i < result.length; i++){
+	dataPoints.push({label:result[i].label, y:result[i].y});
+}
+		var chart = new CanvasJS.Chart("chartContainer", {
+			theme: "theme2",
+			animationEnabled: true,
+			zoomEnabled: true,
+			title: {
+				text: "Filling degree of the cesspool in [%]"
+			},
+			subtitles: [
+				{ text: "By each day" }
+			],
+			 axisX:{
+ 				title: "Time",
 				},
-				subtitles: [
-					{ text: "By each day" }
-				],
-				 axisX:{
-  				title: "Time",
- 				},
-				axisY:{
-				   maximum: 100,
-				    title: "In percent"
- 				},
-				data: [
-				{
-					type: "column", //change type to bar, line, area, pie, etc
-				                    //Uncomment below line to add data coming from the controller.
-                    dataPoints:dataPoints
-                }
-				]
-			});
-			chart.render();
+			axisY:{
+			   maximum: 100,
+			    title: "In percent"
+				},
+			data: [
+			{
+				type: "column", //change type to bar, line, area, pie, etc
+			                    //Uncomment below line to add data coming from the controller.
+                   dataPoints:dataPoints
+               }
+			]
+		});
+		chart.render();
         };
-        
-			 </script>
+        	 
+	</script>
  
 </body>
 </html>

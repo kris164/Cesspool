@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Cesspool.Models
+namespace dotnettest.Models
 {
     public class pesso
     {
@@ -14,6 +14,8 @@ namespace Cesspool.Models
         public string Name { get; set; }
 
         public string voltage {get;set;} 
+
+        public string temperature {get;set;}      
 
         public System.DateTime lastUpdated  {get;set;} 
     }
